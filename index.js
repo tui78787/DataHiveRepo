@@ -1,11 +1,15 @@
-function binarySearch(arr, target) {
-  let low = 0;
-  let high = arr.length - 1;
-  while (low <= high) {
-    let mid = Math.floor((low + high) / 2);
-    if (arr[mid] === target) return mid;
-    if (arr[mid] < target) low = mid + 1;
-    else high = mid - 1;
+function uniquePaths(m, n) {
+  const dp = new Array(m).fill(0).map(() => new Array(n).fill(0));
+  for (let i = 0; i < m; i++) {
+    dp[i][0] = 1;
   }
-  return -1;
+  for (let j = 0; j < n; j++) {
+    dp[0][j] = 1;
+  }
+  for (let i = 1; i < m; i++) {
+    for (let j = 1; j < n; j++) {
+      dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+    }
+  }
+  return dp[m - 1][n - 1];
 }
