@@ -1,12 +1,15 @@
-function insertionSort(arr) {
-  for (let i = 1; i < arr.length; i++) {
-    let key = arr[i];
-    let j = i - 1;
-    while (j >= 0 && arr[j] > key) {
-      arr[j + 1] = arr[j];
-      j--;
-    }
-    arr[j + 1] = key;
+function uniquePaths(m, n) {
+  const dp = new Array(m).fill(0).map(() => new Array(n).fill(0));
+  for (let i = 0; i < m; i++) {
+    dp[i][0] = 1;
   }
-  return arr;
+  for (let j = 0; j < n; j++) {
+    dp[0][j] = 1;
+  }
+  for (let i = 1; i < m; i++) {
+    for (let j = 1; j < n; j++) {
+      dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+    }
+  }
+  return dp[m - 1][n - 1];
 }
