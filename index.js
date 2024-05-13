@@ -1,15 +1,19 @@
-function uniquePaths(m, n) {
-  const dp = new Array(m).fill(0).map(() => new Array(n).fill(0));
-  for (let i = 0; i < m; i++) {
-    dp[i][0] = 1;
+function rotateRight(head, k) {
+  if (!head) return null;
+  let length = 1;
+  let tail = head;
+  while (tail.next) {
+    length++;
+    tail = tail.next;
   }
-  for (let j = 0; j < n; j++) {
-    dp[0][j] = 1;
+  k %= length;
+  if (k === 0) return head;
+  let newTail = head;
+  for (let i = 0; i < length - k - 1; i++) {
+    newTail = newTail.next;
   }
-  for (let i = 1; i < m; i++) {
-    for (let j = 1; j < n; j++) {
-      dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
-    }
-  }
-  return dp[m - 1][n - 1];
+  const newHead = newTail.next;
+  newTail.next = null;
+  tail.next = head;
+  return newHead;
 }
